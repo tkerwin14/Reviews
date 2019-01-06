@@ -1,3 +1,3 @@
 # Reviews
 
-Creates a list of reviewed rrestaurants and their associated metadata.
+Creates a list of reviewed restaurants and their associated metadata.
