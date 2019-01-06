@@ -43,7 +43,7 @@ def pullFullPage(url):
     Parameters: 
     driver - WebDriver - Chrome browser
     url - string - the url of NY Times reviews 
-    Saves out the page source after 
+    Saves out the page source after scrolling to the end.
     '''
     driver = webdriver.Chrome()
     driver.get(url)
@@ -67,6 +67,10 @@ def tryValue(elem):
 
 def pullStars(sb): 
     '''
+    Parameters: 
+    sb - BeautifulSoupHTMLElement - a single section for the review
+    Returns the number of stars given in the review or whether it was
+    a critic's pick. It returns None if neither appear in the text.
     '''
     starValue = None
     vs = sb.find("span", "visually-hidden")
@@ -114,16 +118,11 @@ def parseReviews():
     return pd.DataFrame(restLst)
     
 #Pull the HTML version:
-#urlStart = "https://www.nytimes.com/reviews/dining?action=click&contentCollection=dining&region=navbar&module=collectionsnav&pagetype=sectionfront&pgtype=sectionfront"
-#pullFullPage(urlStart)
+urlStart = "https://www.nytimes.com/reviews/dining?action=click&contentCollection=dining&region=navbar&module=collectionsnav&pagetype=sectionfront&pgtype=sectionfront"
+pullFullPage(urlStart)
 
 #Get the parsed version:
 df = parseReviews()
 
-#Now, clean author:
-df.loc[df.author.isnull(), "author"] = "The New York Times"
-df.author = df.author.str.strip()
-df.author = df.author.str.title()
 
-#Now
 
